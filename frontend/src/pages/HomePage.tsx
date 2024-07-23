@@ -36,7 +36,7 @@ function HomePage() {
                 className="flex"
               >
                 <div>
-                  <img src={product.banner} alt={product.name} height="700"/>
+                  <img src={product.banner} alt={product.name} className='featured-products-image'/>
                 </div>
               </Link>
             ))}

@@ -237,3 +237,31 @@ button.side-navbar-user:hover {
 .color-test {
   color: #dbdbdb;
 }
+
+
+
+.featured-products-image {
+  width: 100%;
+  height: 1px;
+}
+
+
+@media screen and (min-width: 200px) {
+  .featured-products-image {
+    height: 200px;
+  }
+}
+
+
+@media screen and (min-width: 500px) {
+  .featured-products-image {
+    height: 400px;
+  }
+}
+
+
+@media screen and (min-width: 900px) {
+  .featured-products-image {
+    height: 700px;
+  }
+}
