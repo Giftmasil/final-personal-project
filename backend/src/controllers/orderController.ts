@@ -163,6 +163,7 @@ export const payForOrderWithStripe = asyncHandler(async (req, res) => {
       const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
         apiVersion: '2022-11-15',
       })
+      
       const paymentIntent = await stripe.paymentIntents.create({
         amount: order.totalPrice * 100,
         currency: 'usd',
