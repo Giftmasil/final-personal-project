@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cross-env TG_ALLOW_MIXED=ALLOW ts-node-dev --respawn --transpile-only --files src/index.ts",
-    "build": "npm install && tsc"
+    "build":"rimraf dist && tsc",
+    "prestart": "npm run build",
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
@@ -29,9 +31,9 @@
     "@types/bcryptjs": "^2.4.2",
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.15",
-    "@types/express-async-handler": "^1.2.0",
     "@types/jsonwebtoken": "^9.0.0",
     "@types/multer": "^1.4.7",
+    "@types/node": "^20.14.11",
     "@types/streamifier": "^0.1.0",
     "@typescript-eslint/eslint-plugin": "^5.48.0",
     "@typescript-eslint/parser": "^5.48.0",
