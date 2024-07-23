@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
+import InputGroup from 'react-bootstrap/InputGroup'
 import { Helmet } from 'react-helmet-async'
 import React, { useContext, useEffect, useState } from 'react'
 import { Store } from '../Store'
@@ -9,6 +9,7 @@ import { toast } from 'react-toastify'
 import { getError } from '../utils'
 import { ApiError } from '../types/ApiError'
 import { useSignupMutation } from '../hooks/userHooks'
+import Button from 'react-bootstrap/Button'
 
 export default function SignupPage() {
   const navigate = useNavigate()
@@ -20,11 +21,16 @@ export default function SignupPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [show, setShow] = useState<boolean>(false)
 
   const { state, dispatch } = useContext(Store)
-  const { userInfo } = state
+  const { userInfo, mode } = state
 
   const { mutateAsync: signup, isLoading } = useSignupMutation()
+
+  const handleShow = () => {
+    setShow(!show)
+  }
 
   const submitHandler = async (e: React.SyntheticEvent) => {
     e.preventDefault()
@@ -74,19 +80,37 @@ export default function SignupPage() {
         </Form.Group>
         <Form.Group className="mb-3" controlId="password">
           <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Form.Group className="mb-3" controlId="confirmPassword">
-            <Form.Label>Confirm Password</Form.Label>
+          <InputGroup>
             <Form.Control
-              type="password"
+              type={show ? "text" : "password"}
+              required
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Button
+              variant="outline-secondary"
+              onClick={handleShow}
+              style={{ color: mode === "Dark" ? "black" : "white" }}
+            >
+              {show ? <i className="fa-solid fa-eye-slash" /> : <i className="fa-solid fa-eye"></i>}
+            </Button>
+          </InputGroup>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="confirmPassword">
+          <Form.Label>Confirm Password</Form.Label>
+          <InputGroup>
+            <Form.Control
+              type={show ? "text" : "password"}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
-          </Form.Group>
+            <Button
+              variant="outline-secondary"
+              onClick={handleShow}
+              style={{ color: mode === "Dark" ? "black" : "white" }}
+            >
+              {show ? <i className="fa-solid fa-eye-slash" /> : <i className="fa-solid fa-eye"></i>}
+            </Button>
+          </InputGroup>
         </Form.Group>
         <div className="mb-3">
           <Button type="submit">Sign Up</Button>

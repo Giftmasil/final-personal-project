@@ -4,6 +4,8 @@ import asyncHandler from 'express-async-handler'
 import { generateToken } from "../utils"
 import bcrypt from 'bcryptjs'
 
+
+
 export const getSingleUser =  async (req:Request, res: Response) => {
     const user = await UserModel.findById(req.params.id)
     if (user) {
@@ -12,8 +14,6 @@ export const getSingleUser =  async (req:Request, res: Response) => {
       res.status(404).send({ message: 'User Not Found' })
     }
 }
-
-
 
 
 
@@ -54,6 +54,13 @@ export const signIn = asyncHandler(async (req: Request, res: Response) => {
 
 
 export const signUp = asyncHandler(async (req: Request, res: Response) => {
+
+    const userExists = await UserModel.findOne({ email: req.body.email })
+
+    if (userExists) {
+      res.status(400).send({ message: 'User already exists' })
+    }
+
     const user = await UserModel.create({
       name: req.body.name,
       email: req.body.email,
@@ -65,7 +72,7 @@ export const signUp = asyncHandler(async (req: Request, res: Response) => {
     }
 
     if (user) {
-        res.send({
+        res.status(200).json({
             _id: user._id,
             name: user.name,
             email: user.email,

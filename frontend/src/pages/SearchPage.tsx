@@ -17,16 +17,16 @@ import {
 
 const prices = [
   {
-    name: '$1 to $50',
-    value: '1-50',
+    name: 'Ksh. 1 to Ksh. 5000',
+    value: '1-5000',
   },
   {
-    name: '$51 to $200',
-    value: '51-200',
+    name: 'Ksh. 5001 to Ksh. 30000',
+    value: '5001-30000',
   },
   {
-    name: '$201 to $1000',
-    value: '201-1000',
+    name: 'Ksh. 30001 to Ksh. 300000',
+    value: '30001-300000',
   },
 ]
 

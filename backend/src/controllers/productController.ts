@@ -28,7 +28,7 @@ export const searchForProducts = asyncHandler(async (req: Request, res: Response
     const rating = req.query.rating || '';
 
     const queryFilter =
-      searchQuery && searchQuery !== 'all'
+      (searchQuery && searchQuery !== 'all')
         ? {
             name: {
               $regex: searchQuery,
