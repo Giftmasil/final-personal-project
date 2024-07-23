@@ -3,6 +3,7 @@ import path from 'path'
 import dotenv from 'dotenv'
 import express, { NextFunction, Request, Response } from 'express'
 import mongoose from 'mongoose'
+const PORT: number = Number(process.env.PORT) || 4000 
 import { userRouter } from './routers/userRouter'
 import { orderRouter } from './routers/orderRouter'
 import { productRouter } from './routers/productRouter'
@@ -53,7 +54,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   next()
 })
 
-const PORT: number = Number(process.env.PORT) || 4000 
+
 app.listen(PORT, () => {
   console.log(`server started at http://localhost:${PORT}`)
 })
