@@ -6,7 +6,6 @@ import mongoose from 'mongoose'
 import { userRouter } from './routers/userRouter'
 import { orderRouter } from './routers/orderRouter'
 import { productRouter } from './routers/productRouter'
-import { uploadRouter } from './routers/uploadRouter'
 import keyRouter from './routers/keyRouter'
 
 dotenv.config()
@@ -37,13 +36,12 @@ mongoose
   })
 
 
-app.use('/api/uploads', uploadRouter)
+
 app.use('/api/users', userRouter)
 app.use('/api/products', productRouter)
 app.use('/api/orders', orderRouter)
 app.use('/api/keys', keyRouter)
 
-app.use('/uploads', express.static(path.join(__dirname, '../../uploads')))
 
 app.use(express.static(path.join(__dirname, '../../frontend/dist')))
 app.get('*', (req: Request, res: Response) =>
@@ -55,7 +53,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   next()
 })
 
-const PORT: number = parseInt((process.env.PORT || '5001') as string, 10)
+const PORT: number = Number(process.env.PORT) || 4000 
 app.listen(PORT, () => {
   console.log(`server started at http://localhost:${PORT}`)
 })

@@ -153,7 +153,7 @@ export const payForOrderWithPayPal = asyncHandler(async (req: Request, res: Resp
 
 
 
-export const payForOrderWithStripe = asyncHandler(async (req, res) => {
+export const payForOrderWithStripe = asyncHandler(async (req:Request, res:Response) => {
     try {
       const order = await OrderModel.findById(req.params.id)
       if (!order) {
