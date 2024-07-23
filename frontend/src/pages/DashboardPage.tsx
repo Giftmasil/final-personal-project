@@ -1,15 +1,53 @@
-import Chart from 'react-google-charts'
-import { getError } from '../utils'
-import LoadingBox from '../components/LoadingBox'
-import MessageBox from '../components/MessageBox'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import Card from 'react-bootstrap/Card'
-import { ApiError } from '../types/ApiError'
-import { useGetOrderSummaryQuery } from '../hooks/orderHooks'
+import Chart from 'react-google-charts';
+import { getError } from '../utils';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
+import { ApiError } from '../types/ApiError';
+import { useGetOrderSummaryQuery } from '../hooks/orderHooks';
+import { useContext } from 'react';
+import { Store } from '../Store';
 
 export default function DashboardPage() {
-  const { data: summary, isLoading, error } = useGetOrderSummaryQuery()
+  const { data: summary, isLoading, error } = useGetOrderSummaryQuery();
+  const { state: { mode }, dispatch } = useContext(Store);
+
+  const getChartOptions = (chartType: string) => {
+    if (mode === 'dark') {
+      return {
+        backgroundColor: '#171a26',
+        hAxis: {
+          textStyle: { color: '#ffffff' },
+        },
+        vAxis: {
+          textStyle: { color: '#ffffff' },
+        },
+        legend: {
+          textStyle: { color: '#ffffff' },
+        },
+        ...(chartType === 'PieChart' && {
+          pieSliceTextStyle: { color: '#ffffff' },
+        }),
+      };
+    }
+    return {
+      backgroundColor: '#dbdbdb',
+      hAxis: {
+        textStyle: { color: '#000000' },
+      },
+      vAxis: {
+        textStyle: { color: '#000000' },
+      },
+      legend: {
+        textStyle: { color: '#000000' },
+      },
+      ...(chartType === 'PieChart' && {
+        pieSliceTextStyle: { color: '#000000' },
+      }),
+    };
+  };
 
   return (
     <div>
@@ -51,10 +89,10 @@ export default function DashboardPage() {
               <Card>
                 <Card.Body>
                   <Card.Title>
-                    $
+                    Ksh. {' '}
                     {summary.orders && summary.orders.length > 0
-                    ? summary.orders[0].totalSales.toFixed(2)
-                    : 0}
+                      ? summary.orders[0].totalSales.toFixed(2)
+                      : 0}
                   </Card.Title>
                   <Card.Text> Sales</Card.Text>
                 </Card.Body>
@@ -77,6 +115,7 @@ export default function DashboardPage() {
                     (x: { _id: string; sales: number }) => [x._id, x.sales]
                   ),
                 ]}
+                options={getChartOptions('AreaChart')}
               ></Chart>
             )}
           </div>
@@ -96,11 +135,12 @@ export default function DashboardPage() {
                     (x: { _id: string; count: number }) => [x._id, x.count]
                   ),
                 ]}
+                options={getChartOptions('PieChart')}
               ></Chart>
             )}
           </div>
         </>
       )}
     </div>
-  )
+  );
 }

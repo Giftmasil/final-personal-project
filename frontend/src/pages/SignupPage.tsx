@@ -38,6 +38,11 @@ export default function SignupPage() {
       toast.error('Passwords do not match')
       return
     }
+    if (password.length <= 3) {
+      toast.error('Password must be at least 4 characters')
+      return
+    }
+
     try {
       const data = await signup({
         name,

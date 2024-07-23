@@ -51,6 +51,8 @@ export default function OrderPage() {
   const { mutateAsync: deliverOrder, isLoading: loadingDeliver } =
     useDeliverOrderMutation()
 
+    const { mutateAsync: payOrder, isLoading: loadingPay } = usePayOrderMutation()
+
   async function deliverOrderHandler() {
     try {
       await deliverOrder(orderId!)
@@ -99,15 +101,21 @@ export default function OrderPage() {
     },
   }
   const [{ isPending, isRejected }, paypalDispatch] = usePayPalScriptReducer()
+
   const { refetch: fetchPayPalClientId } = useGetPaypalClientIdQuery()
+
   const { refetch: fetchStripePublishableKey } =
     useGetStripePublishableKeyQuery()
+
   const { mutateAsync: createIntent } = useCreateStripePaymentIntentMutation()
+
   const [stripePromise, setStripePromise] =
     useState<PromiseLike<Stripe | null> | null>(null)
+
   const [stripeOptions, setStripeOptions] = useState<StripeElementsOptions>({
     clientSecret: '',
   })
+  
   useEffect(() => {
     const loadScript = async () => {
       if (order) {
@@ -134,7 +142,7 @@ export default function OrderPage() {
     }
     loadScript()
   }, [order])
-  const { mutateAsync: payOrder, isLoading: loadingPay } = usePayOrderMutation()
+
 
   return isLoading ? (
     <LoadingBox></LoadingBox>
@@ -282,6 +290,7 @@ export default function OrderPage() {
                             payOrder={payOrder}
                           />
                         </Elements>
+                        <Button onClick={testPayHandler}>Test Pay</Button>
                       </div>
                     )}
                   </ListGroup.Item>

@@ -1,17 +1,12 @@
 import express from 'express'
+import { googleKey, paypalKey, stripeKey } from '../controllers/keyControllers'
 
 const keyRouter = express.Router()
 
-keyRouter.get('/paypal', (req, res) => {
-  res.send({ clientId: process.env.PAYPAL_CLIENT_ID || 'sb' })
-})
+keyRouter.get('/paypal', paypalKey)
 
-keyRouter.get('/google', (req, res) => {
-  res.send({ key: process.env.GOOGLE_API_KEY || 'nokey' })
-})
+keyRouter.get('/google', googleKey)
 
-keyRouter.get('/stripe', (req, res) => {
-  res.json({ key: process.env.STRIPE_PUBLISHABLE_KEY })
-})
+keyRouter.get('/stripe', stripeKey)
 
 export default keyRouter

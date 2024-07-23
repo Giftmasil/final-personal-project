@@ -61,7 +61,7 @@ function App() {
           expand="lg"
         >
           <div className="d-flex justify-content-between align-items-center">
-            <LinkContainer  style={{fontSize: "2rem", marginTop: "-.5rem", fontStyle: "italic"}} to="/" className="header-link">
+            <LinkContainer  style={{fontSize: "2rem", marginTop: "-.5rem", fontStyle: "italic", fontFamily: "Pacifisto"}} to="/" className="header-link">
               <Navbar.Brand>Gift's Shop</Navbar.Brand>
             </LinkContainer>
             <SearchBox />

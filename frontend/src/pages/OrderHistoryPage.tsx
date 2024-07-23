@@ -6,10 +6,24 @@ import Button from 'react-bootstrap/Button'
 import { useGetOrderHistoryQuery } from '../hooks/orderHooks'
 import { getError } from '../utils'
 import { ApiError } from '../types/ApiError'
+import { useContext } from 'react'
+import { Store } from '../Store'
 
 export default function OrderHistoryPage() {
   const navigate = useNavigate()
   const { data: orders, isLoading, error } = useGetOrderHistoryQuery()
+  const { state: {mode}, dispatch } = useContext(Store)
+
+  // Sort orders to have not delivered ones first
+  const sortedOrders = orders?.slice().sort((a, b) => {
+    if (!a.isDelivered && b.isDelivered) {
+      return -1
+    } else if (a.isDelivered && !b.isDelivered) {
+      return 1
+    } else {
+      return 0
+    }
+  })
 
   return (
     <div>
@@ -35,7 +49,7 @@ export default function OrderHistoryPage() {
             </tr>
           </thead>
           <tbody>
-            {orders!.map((order) => (
+            {sortedOrders!.map((order) => (
               <tr key={order._id}>
                 <td>{order._id}</td>
                 <td>{order.createdAt.substring(0, 10)}</td>
@@ -49,7 +63,7 @@ export default function OrderHistoryPage() {
                 <td>
                   <Button
                     type="button"
-                    variant="light"
+                    variant={mode === "light" ? "dark" : "light"}
                     onClick={() => {
                       navigate(`/order/${order._id}`)
                     }}

@@ -7,9 +7,12 @@ import MessageBox from '../components/MessageBox'
 import { getError } from '../utils'
 import { ApiError } from '../types/ApiError'
 import { useDeleteOrderMutation, useGetOrdersQuery } from '../hooks/orderHooks'
+import { useContext } from 'react'
+import { Store } from '../Store'
 
 export default function OrderListPage() {
   const navigate = useNavigate()
+  const { state: {mode}, dispatch } = useContext(Store)
 
   const { data: orders, isLoading, error, refetch } = useGetOrdersQuery()
 
@@ -69,7 +72,7 @@ export default function OrderListPage() {
                 <td>
                   <Button
                     type="button"
-                    variant="light"
+                    variant={mode === "light" ? "dark" : "light"}
                     onClick={() => {
                       navigate(`/order/${order._id}`)
                     }}
@@ -79,7 +82,7 @@ export default function OrderListPage() {
                   &nbsp;
                   <Button
                     type="button"
-                    variant="light"
+                    variant={mode === "light" ? "dark" : "light"}
                     onClick={() => deleteHandler(order._id)}
                   >
                     Delete

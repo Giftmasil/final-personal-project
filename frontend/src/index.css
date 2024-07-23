@@ -50,9 +50,20 @@ img.thumbnail {
   border-bottom: 0.2rem solid #a0a0a0;
   color: #a0a0a0;
 }
-.checkout-steps > div.active {
+.checkout-steps > div.active,
+.checkout-steps a.active-link {
   border-bottom: 0.2rem solid #f08000;
   color: #f08000;
+  text-decoration: none;
+}
+
+.checkout-steps a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.checkout-steps a:hover {
+  text-decoration: underline;
 }
 
 /* sidebar */
@@ -214,4 +225,15 @@ button.side-navbar-user:hover {
   border: 1px solid #000000;
   border-radius: 10%;
   margin: 10px;
+}
+
+
+.checkout-link {
+  text-decoration: none;
+  text-underline-position: below;
+}
+
+
+.color-test {
+  color: #dbdbdb;
 }

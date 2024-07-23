@@ -56,6 +56,7 @@ const router = createBrowserRouter(
         <Route path="/order/:id" element={<OrderPage />} />
         <Route path="/map" element={<MapPage />} />
       </Route>
+      
       {/* Admin Users */}
       <Route path="/admin" element={<AdminRoute />}>
         <Route path="dashboard" element={<DashboardPage />} />
