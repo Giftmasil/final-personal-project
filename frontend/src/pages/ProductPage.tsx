@@ -106,7 +106,7 @@ function ProductPage() {
               <Helmet>
                 <title>{product.name}</title>
               </Helmet>
-              <h1 className='product-name-title'>{product.name}</h1>
+              <h1 style={{color: state.mode === "dark" ? "white" : "black"}} className='product-name-title'>{product.name}</h1>
             </ListGroup.Item>
             <ListGroup.Item>
               <Rating

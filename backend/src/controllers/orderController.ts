@@ -81,43 +81,43 @@ export const deliverSingleOrder = asyncHandler(async (req: Request, res: Respons
 
 
 
-export const getAllOrdersSummary = asyncHandler(async (req: Request, res: Response) => {
-    const orders = await OrderModel.aggregate([
-      {
-        $group: {
-          _id: null,
-          numOrders: { $sum: 1 },
-          totalSales: { $sum: '$totalPrice' },
-        },
+export const getAllOrdersSummary =  asyncHandler(async (req: Request, res: Response) => {
+  const orders = await OrderModel.aggregate([
+    {
+      $group: {
+        _id: null,
+        numOrders: { $sum: 1 },
+        totalSales: { $sum: '$totalPrice' },
       },
-    ])
-    const users = await UserModel.aggregate([
-      {
-        $group: {
-          _id: null,
-          numUsers: { $sum: 1 },
-        },
+    },
+  ])
+  const users = await UserModel.aggregate([
+    {
+      $group: {
+        _id: null,
+        numUsers: { $sum: 1 },
       },
-    ])
-    const dailyOrders = await OrderModel.aggregate([
-      {
-        $group: {
-          _id: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } },
-          orders: { $sum: 1 },
-          sales: { $sum: '$totalPrice' },
-        },
+    },
+  ])
+  const dailyOrders = await OrderModel.aggregate([
+    {
+      $group: {
+        _id: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } },
+        orders: { $sum: 1 },
+        sales: { $sum: '$totalPrice' },
       },
-      { $sort: { _id: 1 } },
-    ])
-    const productCategories = await ProductModel.aggregate([
-      {
-        $group: {
-          _id: '$category',
-          count: { $sum: 1 },
-        },
+    },
+    { $sort: { _id: 1 } },
+  ])
+  const productCategories = await ProductModel.aggregate([
+    {
+      $group: {
+        _id: '$category',
+        count: { $sum: 1 },
       },
-    ])
-    res.send({ users, orders, dailyOrders, productCategories })
+    },
+  ])
+  res.send({ users, orders, dailyOrders, productCategories })
 })
 
 

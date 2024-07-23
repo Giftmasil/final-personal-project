@@ -12,7 +12,10 @@ import { Store } from '../Store';
 
 export default function DashboardPage() {
   const { data: summary, isLoading, error } = useGetOrderSummaryQuery();
-  const { state: { mode }, dispatch } = useContext(Store);
+  const { state: { mode } } = useContext(Store);
+
+  // Log summary to verify the data structure
+  console.log(summary);
 
   const getChartOptions = (chartType: string) => {
     if (mode === 'dark') {
@@ -116,7 +119,7 @@ export default function DashboardPage() {
                   ),
                 ]}
                 options={getChartOptions('AreaChart')}
-              ></Chart>
+              />
             )}
           </div>
           <div className="my-3">
@@ -136,7 +139,7 @@ export default function DashboardPage() {
                   ),
                 ]}
                 options={getChartOptions('PieChart')}
-              ></Chart>
+              />
             )}
           </div>
         </>
