@@ -8,9 +8,12 @@ import { useDeleteUserMutation, useGetUsersQuery } from '../hooks/userHooks'
 import { ApiError } from '../types/ApiError'
 import { User } from '../types/User'
 import { getError } from '../utils'
+import { useContext } from 'react'
+import { Store } from '../Store'
 
 export default function UserListPage() {
   const navigate = useNavigate()
+  const { state: { mode }, dispatch } = useContext(Store)
 
   const { data: users, isLoading, error, refetch } = useGetUsersQuery()
 
@@ -62,7 +65,7 @@ export default function UserListPage() {
                 <td>
                   <Button
                     type="button"
-                    variant="light"
+                    variant={mode === "light" ? "dark" : "light"}
                     onClick={() => navigate(`/admin/user/${user._id}`)}
                   >
                     Edit
@@ -70,7 +73,7 @@ export default function UserListPage() {
                   &nbsp;
                   <Button
                     type="button"
-                    variant="light"
+                    variant={mode === "light" ? "dark" : "light"}
                     onClick={() => deleteHandler(user._id)}
                   >
                     Delete
