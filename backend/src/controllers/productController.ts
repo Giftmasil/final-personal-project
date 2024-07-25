@@ -5,18 +5,28 @@ import { Request, Response } from "express";
 
 const PAGE_SIZE = 3;
 
-export const getAllProducts = asyncHandler(async (req, res) => {
-    const latestProducts = await ProductModel.find({}, '-reviews')
-      .sort({ _id: -1 })
-      .limit(6);
-    const featuredProducts = await ProductModel.find(
-      {
-        isFeatured: true,
-      },
-      '_id name banner slug'
-    ).limit(3);
-    res.send({ latestProducts, featuredProducts });
-})
+export const getAllProducts = asyncHandler(async (req: Request, res: Response) => {
+  try {
+    // Aggregate the latest products (excluding reviews)
+    const latestProducts = await ProductModel.aggregate([
+      { $project: { reviews: 0 } }, // Exclude reviews
+      { $sort: { _id: -1 } }, // Sort by _id in descending order
+      { $limit: 6 } // Limit to 6 products
+    ]);
+
+    // Aggregate the featured products (including banner and slug)
+    const featuredProducts = await ProductModel.aggregate([
+      { $match: { isFeatured: true } }, // Filter by featured products
+      { $project: { _id: 1, name: 1, banner: 1, slug: 1 } }, // Include specific fields
+      { $limit: 3 } // Limit to 3 products
+    ]);
+
+    res.status(200).send({ latestProducts, featuredProducts });
+  } catch (error) {
+    console.error("Error getting products:", error);
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+});
 
 export const searchForProducts = asyncHandler(async (req: Request, res: Response) => {
     const page = Number(req.query.page) || 1;
@@ -104,7 +114,7 @@ export const getAdminDashboardDetails = asyncHandler(async (req: Request, res: R
 
 export const getProductCategories =  asyncHandler(async (req: Request, res: Response) => {
     const categories = await ProductModel.find().distinct('category');
-    res.send(categories);
+    res.status(200).send(categories);
 })
 
 
@@ -130,9 +140,10 @@ export const getSingleProductById = asyncHandler(async (req: Request, res: Respo
 })
 
 export const createNewProduct = asyncHandler(async (req: Request, res: Response) => {
-    const product = await ProductModel.create({
+  try {
+    const createdProduct = await ProductModel.create({
       name: 'sample name ' + Date.now(),
-      image: 'https://example.com/sample-image.jpg', // Updated to use URL
+      image: 'https://example.com/sample-image.jpg',
       price: 0,
       slug: 'sample-slug-' + Date.now(),
       category: 'sample category',
@@ -143,12 +154,21 @@ export const createNewProduct = asyncHandler(async (req: Request, res: Response)
       description: 'sample description',
     } as Product);
 
-    const createdProduct = await product.save();
-    res.send({
-      message: 'Product Created',
-      product: createdProduct,
-    });
-})
+    if (createdProduct) {
+      res.status(201).send({
+        message: 'Product Created',
+        product: createdProduct,
+      });
+    } else {
+      res.status(400).send({ message: 'Product Not Created' });
+    }
+  } catch (error) {
+    console.error('Error creating product:', error);
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+});
+
+
 
 
 export const updateSingleProduct = asyncHandler(async (req: Request, res: Response) => {
@@ -205,7 +225,6 @@ export const postNewReview = asyncHandler(async (req: Request, res: Response) =>
       product.rating =
         product.reviews.reduce((a, c) => c.rating + a, 0) /
         product.reviews.length;
-      console.log(product.reviews);
       const updatedProduct = await product.save();
       res.status(201).send({
         message: 'Review Created',

@@ -7,6 +7,17 @@
   -webkit-text-size-adjust: 100%;
 }
 
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+header {
+  background-color: var(--header-bg-color);
+  color: var(--header-text-color);
+}
+
+
 main {
   flex: 1;
 }
@@ -235,7 +246,7 @@ button.side-navbar-user:hover {
 
 
 .color-test {
-  color: #dbdbdb;
+  color: #c7c7c7;
 }
 
 

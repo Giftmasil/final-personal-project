@@ -1,79 +1,77 @@
-import { modelOptions, prop, getModelForClass, Ref } from '@typegoose/typegoose'
-import { Product } from './productModel'
-import { User } from './userModel'
+import { modelOptions, prop, getModelForClass, Ref } from '@typegoose/typegoose';
+import { Product } from './productModel';
+import { User } from './userModel';
 
 class ShippingAddress {
   @prop()
-  public fullName?: string
+  public fullName?: string;
   @prop()
-  public address?: string
+  public address?: string;
   @prop()
-  public city?: string
+  public city?: string;
   @prop()
-  public postalCode?: string
+  public postalCode?: string;
   @prop()
-  public country?: string
+  public country?: string;
   @prop()
-  public lat?: number
+  public lat?: number;
   @prop()
-  public lng?: number
+  public lng?: number;
 }
 
 class Item {
   @prop({ required: true })
-  public name!: string
+  public name!: string;
   @prop({ required: true })
-  public quantity!: string
+  public quantity!: number;
   @prop({ required: true })
-  public image!: number
+  public image!: string;
   @prop({ required: true })
-  public price!: number
-  @prop({ ref: Product })
-  public product?: Ref<Product>
+  public price!: number;
+  @prop({ ref: () => Product })
+  public product?: Ref<Product>;
 }
 
 class PaymentResult {
   @prop()
-  public paymentId!: string
+  public paymentId!: string;
   @prop()
-  public status!: string
+  public status!: string;
   @prop()
-  public update_time!: string
+  public update_time!: string;
   @prop()
-  public email_address!: string
+  public email_address!: string;
 }
 
 @modelOptions({ schemaOptions: { timestamps: true } })
 export class Order {
-  public _id!: string
+  public _id!: string;
+  @prop({ type: () => [Item], required: true })
+  public orderItems!: Item[];
   @prop()
-  public orderItems!: Item[]
-  @prop()
-  public shippingAddress?: ShippingAddress
-
-  @prop({ ref: User })
-  public user?: Ref<User>
-
+  public shippingAddress?: ShippingAddress;
+  @prop({ ref: () => User })
+  public user?: Ref<User>;
   @prop({ required: true })
-  public paymentMethod!: string
+  public paymentMethod!: string;
   @prop()
-  public paymentResult?: PaymentResult
+  public paymentResult?: PaymentResult;
   @prop({ required: true, default: 0 })
-  public itemsPrice!: number
+  public itemsPrice!: number;
   @prop({ required: true, default: 0 })
-  public shippingPrice!: number
+  public shippingPrice!: number;
   @prop({ required: true, default: 0 })
-  public taxPrice!: number
+  public taxPrice!: number;
   @prop({ required: true, default: 0 })
-  public totalPrice!: number
+  public totalPrice!: number;
   @prop({ required: true, default: false })
-  public isPaid!: boolean
+  public isPaid!: boolean;
   @prop()
-  public paidAt!: Date
+  public paidAt!: Date;
   @prop({ required: true, default: false })
-  public isDelivered!: boolean
+  public isDelivered!: boolean;
   @prop()
-  public deliveredAt!: Date
+  public deliveredAt!: Date;
 }
 
-export const OrderModel = getModelForClass(Order)
+export const OrderModel = getModelForClass(Order);

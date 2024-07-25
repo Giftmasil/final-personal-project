@@ -54,14 +54,13 @@ export const createNewOrder = asyncHandler(async (req: Request, res: Response) =
 
 
 export const deleteSingleOrder = asyncHandler(async (req: Request, res: Response) => {
-    const order = await OrderModel.findById(req.params.id)
-    if (order) {
-      const deleteOrder = await order.deleteOne()
-      res.send({ message: 'Order Deleted', order: deleteOrder })
-    } else {
-      res.status(404).send({ message: 'Order Not Found' })
-    }
-})
+  const order = await OrderModel.findByIdAndDelete(req.params.id);
+  if (order) {
+    res.send({ message: 'Order Deleted', order });
+  } else {
+    res.status(404).send({ message: 'Order Not Found' });
+  }
+});
 
 
 
