@@ -51,6 +51,7 @@ export default function ProfilePage() {
           <Form.Label>Name</Form.Label>
           <Form.Control
             value={name}
+            id="name"
             onChange={(e) => setName(e.target.value)}
             required
           />
@@ -59,6 +60,7 @@ export default function ProfilePage() {
           <Form.Label>Email</Form.Label>
           <Form.Control
             type="email"
+            id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -68,6 +70,7 @@ export default function ProfilePage() {
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
+            id="password"
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
@@ -75,6 +78,7 @@ export default function ProfilePage() {
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
             type="password"
+            id="password"
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </Form.Group>
