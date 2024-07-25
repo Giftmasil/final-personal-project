@@ -63,7 +63,6 @@ export default function StripeCheckoutForm({
         await payOrder({ orderId: orderId, ...result.paymentIntent })
         refetch()
         toast.success('Order is paid')
-        console.log('[PaymentIntent]', result.paymentIntent)
       } catch (err) {
         toast.error(getError(err as ApiError))
       }

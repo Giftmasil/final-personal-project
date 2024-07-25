@@ -14,9 +14,6 @@ export default function DashboardPage() {
   const { data: summary, isLoading, error } = useGetOrderSummaryQuery();
   const { state: { mode } } = useContext(Store);
 
-  // Log summary to verify the data structure
-  console.log(summary);
-
   const getChartOptions = (chartType: string) => {
     if (mode === 'dark') {
       return {

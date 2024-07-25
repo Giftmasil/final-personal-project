@@ -14,8 +14,6 @@ import { ApiError } from '../types/ApiError'
 
 function HomePage() {
   const { data, isLoading, error } = useGetProductsQuery()
-  console.log(data);
-  
 
   return (
     <div>
