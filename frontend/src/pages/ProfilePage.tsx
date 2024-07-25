@@ -78,7 +78,7 @@ export default function ProfilePage() {
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
             type="password"
-            id="password"
+            id="confirmPassword"
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </Form.Group>
