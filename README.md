@@ -82,6 +82,21 @@ $ npm run dev
 - Enter admin email and password and click signin
 - email: gift@gmail.com
 - password: muuo
+  
+## 8. Running tests
+
+- Run tests in the frontend. Make sure you are in the root directory
+
+```shell
+ npx playwright test
+```
+
+- Run test in the backend.
+
+```shell
+ cd backend
+ npm test
+```
 
 ## Support
 
