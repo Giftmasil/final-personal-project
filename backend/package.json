@@ -7,7 +7,7 @@
     "test": "jest",
     "dev": "cross-env TG_ALLOW_MIXED=ALLOW ts-node-dev --respawn --transpile-only --files src/index.ts",
     "build": "npm install && rimraf dist && tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/src/index.js"
   },
   "keywords": [],
   "author": "",
