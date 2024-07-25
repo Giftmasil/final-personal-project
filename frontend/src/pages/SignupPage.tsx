@@ -94,7 +94,7 @@ export default function SignupPage() {
             <Button
               variant="outline-secondary"
               onClick={handleShow}
-              style={{ color: mode === "Dark" ? "black" : "white" }}
+              style={{ color: mode === "dark" ? "white" : "black" }}
             >
               {show ? <i className="fa-solid fa-eye-slash" /> : <i className="fa-solid fa-eye"></i>}
             </Button>
@@ -111,7 +111,7 @@ export default function SignupPage() {
             <Button
               variant="outline-secondary"
               onClick={handleShow}
-              style={{ color: mode === "Dark" ? "black" : "white" }}
+              style={{ color: mode === "dark" ? "white" : "black" }}
             >
               {show ? <i className="fa-solid fa-eye-slash" /> : <i className="fa-solid fa-eye"></i>}
             </Button>
