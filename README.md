@@ -1,6 +1,6 @@
 # TypeScript E-Commerce Website
 
-![gift's-shop](/frontend/public/images/gift's.jpg)
+![gift's-shop](/frontend/public/images/gift.jpg)
 
 ## [2024]
 
