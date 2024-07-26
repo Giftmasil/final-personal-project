@@ -21,6 +21,8 @@ export default function CartPage() {
     dispatch,
   } = useContext(Store)
 
+  const { state: { mode }} = useContext(Store)
+
   const updateCartHandler = async (item: CartItem, quantity: number) => {
     if (item.countInStock < quantity) {
       toast.warn('Sorry. Product is out of stock')
@@ -69,14 +71,14 @@ export default function CartPage() {
                         onClick={() =>
                           updateCartHandler(item, item.quantity - 1)
                         }
-                        variant="light"
+                        variant={mode === "light" ? "dark" : "light"}
                         disabled={item.quantity === 1}
                       >
                         <i className="fas fa-minus-circle"></i>
                       </Button>{' '}
                       <span>{item.quantity}</span>{' '}
                       <Button
-                        variant="light"
+                        variant={mode === "light" ? "dark" : "light"}
                         onClick={() =>
                           updateCartHandler(item, item.quantity + 1)
                         }
@@ -89,7 +91,7 @@ export default function CartPage() {
                     <Col md={2}>
                       <Button
                         onClick={() => removeItemHandler(item)}
-                        variant="light"
+                        variant={mode === "light" ? "dark" : "light"}
                       >
                         <i className="fas fa-trash"></i>
                       </Button>
