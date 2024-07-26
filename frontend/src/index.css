@@ -246,7 +246,7 @@ button.side-navbar-user:hover {
 
 
 .color-test {
-  color: #048104;
+  color: #2c2727;
 }
 
 .footer {
@@ -267,6 +267,10 @@ button.side-navbar-user:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.card-text-items > button {
+  width: 100%;
 }
 
 .featured-products-image {

@@ -43,13 +43,13 @@ function ProductItem({ product }: { product: Product }) {
         <Rating rating={product.rating} numReviews={product.numReviews} />
         </div>
         <div className='card-text-items'>
-        <Card.Text><span style={{fontSize: "1.5rem", fontWeight:"bolder", color:"#048104"}}>Ksh. {product.price}</span></Card.Text>
+        <Card.Text><span style={{fontSize: "1.5rem", fontWeight:"bolder", color: state.mode === "dark"?"#ececec": "#2c2727"}}>Ksh. {product.price}</span></Card.Text>
         {product.countInStock === 0 ? (
           <Button variant="light" disabled>
             Out of stock
           </Button>
         ) : (
-          <Button
+          <Button variant={state.mode === "light"? "dark": "primary"}
             onClick={() => addToCartHandler(convertProductToCartItem(product))}
           >
             Add to cart
