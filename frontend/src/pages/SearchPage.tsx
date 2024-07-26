@@ -14,6 +14,8 @@ import {
   useGetCategoriesQuery,
   useSearchProductsQuery,
 } from '../hooks/productHooks'
+import { useContext } from 'react'
+import { Store } from '../Store'
 
 const prices = [
   {
@@ -62,6 +64,7 @@ export default function SearchPage() {
   const rating = sp.get('rating') || 'all'
   const order = sp.get('order') || 'newest'
   const page = Number(sp.get('page') || 1)
+  const { state: { mode }, dispatch } = useContext(Store)
 
   const { data, isLoading, error } = useSearchProductsQuery({
     category,
@@ -99,6 +102,15 @@ export default function SearchPage() {
       skipPathname ? '' : '/search?'
     }category=${filterCategory}&query=${filterQuery}&price=${filterPrice}&rating=${filterRating}&order=${sortOrder}&page=${filterPage}`
   }
+
+  const getLinkClassName = (isActive:boolean, isDarkMode:boolean) => {
+    let className = isDarkMode ? 'search-links-dark' : 'search-links-light'
+    if (isActive) {
+      className += ' text-bold'
+    }
+    return className
+  }
+
   return (
     <div>
       <Helmet>
@@ -106,18 +118,17 @@ export default function SearchPage() {
       </Helmet>
       <Row>
         <Col md={3}>
-        <div className='search-product-div'>
-          <h3>Department</h3>
+          <div className={mode === "light" ? 'search-product-div search-product-light' : "search-product-div"}>
+            <h3>Department</h3>
             <ul className='search-product-ul'>
               <li>
                 <Link
-                  className={'all' === category ? 'text-bold' : ''}
+                  className={getLinkClassName('all' === category, mode === 'dark')}
                   to={getFilterUrl({ category: 'all' })}
                 >
                   Any
                 </Link>
               </li>
-
               {loadingCategories ? (
                 <LoadingBox />
               ) : error ? (
@@ -128,7 +139,7 @@ export default function SearchPage() {
                 categories!.map((c) => (
                   <li key={c}>
                     <Link
-                      className={c === category ? 'text-bold' : ''}
+                      className={getLinkClassName(c === category, mode === 'dark')}
                       to={getFilterUrl({ category: c })}
                     >
                       {c}
@@ -138,12 +149,12 @@ export default function SearchPage() {
               )}
             </ul>
           </div>
-          <div className='search-product-div'>
+          <div className={mode === "light" ? 'search-product-div search-product-light' : "search-product-div"}>
             <h3>Price</h3>
             <ul className='search-product-ul'>
               <li>
                 <Link
-                  className={'all' === price ? 'text-bold' : ''}
+                  className={getLinkClassName('all' === price, mode === 'dark')}
                   to={getFilterUrl({ price: 'all' })}
                 >
                   Any
@@ -153,7 +164,7 @@ export default function SearchPage() {
                 <li key={p.value}>
                   <Link
                     to={getFilterUrl({ price: p.value })}
-                    className={p.value === price ? 'text-bold' : ''}
+                    className={getLinkClassName(p.value === price, mode === 'dark')}
                   >
                     {p.name}
                   </Link>
@@ -161,14 +172,14 @@ export default function SearchPage() {
               ))}
             </ul>
           </div>
-          <div className='search-product-div'>
+          <div className={mode === "light" ? 'search-product-div search-product-light' : "search-product-div"}>
             <h3>Avg. Customer Review</h3>
             <ul className='search-product-ul'>
               {ratings.map((r) => (
                 <li key={r.name}>
                   <Link
                     to={getFilterUrl({ rating: r.rating.toString() })}
-                    className={`${r.rating}` === `${rating}` ? 'text-bold' : ''}
+                    className={getLinkClassName(`${r.rating}` === `${rating}`, mode === 'dark')}
                   >
                     <Rating caption={' & up'} rating={r.rating}></Rating>
                   </Link>
@@ -177,7 +188,7 @@ export default function SearchPage() {
               <li>
                 <Link
                   to={getFilterUrl({ rating: 'all' })}
-                  className={rating === 'all' ? 'text-bold' : ''}
+                  className={getLinkClassName(rating === 'all', mode === 'dark')}
                 >
                   <Rating caption={' & up'} rating={0}></Rating>
                 </Link>

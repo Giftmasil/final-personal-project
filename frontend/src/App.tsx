@@ -62,7 +62,7 @@ function App() {
         >
           <div  className={mode === "dark"?  "d-flex justify-content-between align-items-center overall-container": "d-flex justify-content-between align-items-center overall-container  main-heading-container"}>
             <LinkContainer  style={{fontSize: "3rem", marginTop: "-.5rem", fontFamily: "Italianno"}} to="/" className="header-link">
-              <Navbar.Brand><img className='company-logo' src='../public/images/shop-logo.png' width="50" height="50"></img><span style={{color: mode==="dark"? "white": "black"}}>Gift's Shop</span></Navbar.Brand>
+              <Navbar.Brand><img className='company-logo' alt='company-logo' src='/images/shop-logo.png' width="50" height="50"></img><span style={{color: mode==="dark"? "white": "black"}}>Gift's Shop</span></Navbar.Brand>
             </LinkContainer>
             <Navbar.Collapse>
               <Nav className="w-100 justify-content-end">

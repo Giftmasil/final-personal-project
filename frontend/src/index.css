@@ -250,9 +250,22 @@ button.side-navbar-user:hover {
 
 .search-product-div {
   padding: 10px;
-  border: 1px solid #000000;
   border-radius: 10%;
   margin: 10px;
+}
+
+.search-product-light {
+  background-color: whitesmoke;
+}
+
+.search-links-light {
+  text-decoration: none;
+  color: #333;
+}
+
+.search-links-dark {
+  text-decoration: none;
+  color: whitesmoke;
 }
 
 
@@ -279,7 +292,7 @@ button.side-navbar-user:hover {
 
 
 .color-test {
-  color: #000000;
+  color: #635400;
 }
 
 
