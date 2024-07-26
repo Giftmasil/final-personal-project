@@ -36,11 +36,14 @@ function ProductItem({ product }: { product: Product }) {
         <img src={product.image} className="card-img-top" alt={product.name} width="300" height="300" />
       </Link>
       <Card.Body>
+        <div className='product-card'>
         <Link to={`/product/${product.slug}`}>
           <Card.Title>{product.name}</Card.Title>
         </Link>
         <Rating rating={product.rating} numReviews={product.numReviews} />
-        <Card.Text>Ksh. {product.price}</Card.Text>
+        </div>
+        <div className='card-text-items'>
+        <Card.Text><span style={{fontSize: "1.5rem", fontWeight:"bolder", color:"#048104"}}>Ksh. {product.price}</span></Card.Text>
         {product.countInStock === 0 ? (
           <Button variant="light" disabled>
             Out of stock
@@ -52,6 +55,7 @@ function ProductItem({ product }: { product: Product }) {
             Add to cart
           </Button>
         )}
+        </div>
       </Card.Body>
     </Card>
   )

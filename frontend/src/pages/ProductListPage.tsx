@@ -14,12 +14,14 @@ import {
   useDeleteProductMutation,
   useGetAdminProdcutsQuery,
 } from '../hooks/productHooks'
+import { Store } from '../Store'
 
 export default function ProductListPage() {
   const navigate = useNavigate()
   const { search } = useLocation()
   const sp = new URLSearchParams(search)
   const page = Number(sp.get('page') || 1)
+  const { state: { mode }, dispatch } = useContext(Store)
 
   const { data, isLoading, error, refetch } = useGetAdminProdcutsQuery(page)
 
@@ -99,7 +101,7 @@ export default function ProductListPage() {
                   <td>
                     <Button
                       type="button"
-                      variant="light"
+                      variant={mode === "light" ? "dark" : "light"}
                       onClick={() => navigate(`/admin/product/${product._id}`)}
                     >
                       Edit
@@ -107,7 +109,7 @@ export default function ProductListPage() {
                     &nbsp;
                     <Button
                       type="button"
-                      variant="light"
+                      variant={mode === "light" ? "dark" : "light"}
                       onClick={() => deleteHandler(product._id)}
                     >
                       Delete

@@ -154,15 +154,6 @@ function App() {
               >
                 <i className="fas fa-bars"></i> All
               </Link>
-              {['Todays Deal', 'Gifts', 'On Sale'].map((x) => (
-                <Link
-                  key={x}
-                  className="nav-link header-link p-1 px-3"
-                  to={`/search?tag=${x}`}
-                >
-                  {x}
-                </Link>
-              ))}
             </div>
           </div>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -230,8 +221,14 @@ function App() {
         </Container>
       </main>
       <footer>
-        <div className="text-center">All rights reserved</div>
-      </footer>
+  <div className='footer' style={{ backgroundColor: mode=== "light"? "#c3c3c3" : "#181f28", color: mode==="light"? "#181f28": "#f5f5f5"}}>
+    <div>
+      <p>&copy; {new Date().getFullYear()} Gift's Shop. All rights reserved.</p>
+      <p>Designed with ❤️ by Gift's Shop Team</p>
+    </div>
+  </div>
+</footer>
+
     </div>
   )
 }

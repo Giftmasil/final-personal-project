@@ -40,7 +40,7 @@ function HomePage() {
             ))}
           </Carousel>
 
-          <h1>Latest Products</h1>
+          <h1 style={{textAlign: "center", margin: "1rem"}}>Latest Products</h1>
           <div className="products">
             <Row>
               {data!.latestProducts.map((product: Product) => (
