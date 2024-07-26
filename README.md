@@ -98,6 +98,18 @@ $ npm run dev
  npm test
 ```
 
+## 9. Deploying
+
+- Deploy to Vercel for frontend
+- Deploy to Render for backend
+
+
+## 10. Potential bugs to encounter
+
+- In light mode, you will not be able to see the dropdown menu arror in the admin and user part of the topbar. 
+- the map section may not work well. 
+- Stripe payment method might not work saying it does not allow it on insecure sites.
+
 ## Support
 
 - Contact Builder: [Gift](mailto:masilagift@gmail.com)
