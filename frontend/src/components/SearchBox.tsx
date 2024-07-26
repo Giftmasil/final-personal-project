@@ -20,12 +20,13 @@ export default function SearchBox() {
           type="text"
           name="q"
           id="q"
+          style={{borderRadius: "30px 0 0 30px"}} // Adjust border radius to fit the button inside the input area
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search For Item"
-          aria-label="Search Amazona"
+          aria-label="Search For Item"
           aria-describedby="button-search"
         ></FormControl>
-        <Button variant="outline-primary" type="submit" id="button-search">
+        <Button variant="outline-primary" type="submit" id="button-search" style={{borderRadius: "0 30px 30px 0"}}>
           <i className="fas fa-search"></i>
         </Button>
       </InputGroup>
